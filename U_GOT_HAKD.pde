@@ -1,12 +1,12 @@
 PImage img;
 
-void setup() {
+void setup1() {
   size(800, 600, P3D);  // Use P3D renderer for 3D capabilities
   // Upload the image from your computer
   selectInput("Select an image to process:", "imageSelected");
 }
 
-void draw() {
+void draw2() {
   background(255);
   // Display the image
   if (img != null) {
