@@ -5,7 +5,7 @@ void setup() {
     // size(800, 800, P3D);
     
     // ImageProcessor ip = new ImageProcessor("images/despair.png");
-    ImageProcessor ip = new ImageProcessor("images/alien.png");
+    ImageProcessor ip = new ImageProcessor("images/alien_mad.png");
     Kernel gauss = new Kernel("kernels/gauss.txt");
     Kernel fry = new Kernel("kernels/fry.txt");
     tpr = new TextPixelRenderer(ip, gauss, "texts/lostTime.txt");
