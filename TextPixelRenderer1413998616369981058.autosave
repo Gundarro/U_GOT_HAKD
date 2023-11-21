@@ -32,7 +32,7 @@ class TextPixelRenderer extends PixelRenderer {
 
                 pushMatrix();
                 
-                int mouseRadius = 60;
+                int mouseRadius = 50;
                 float distanceFromMouse = dist(pixel.originalPosition.x, pixel.originalPosition.y, pixel.originalPosition.z, mouseX, mouseY, 0);
                 
                 PVector pixelPosition = new PVector(pixel.position.x, pixel.position.y, pixel.position.z);
@@ -54,7 +54,7 @@ class TextPixelRenderer extends PixelRenderer {
                     pixel.update();
                     // push away from mouse
                     PVector mousePosition = new PVector(mouseX, mouseY, 0);
-                    pixel.pushAwayFromPoint(mousePosition, 40);
+                    pixel.pushAwayFromPoint(mousePosition, 50);
                     
                 }
                 

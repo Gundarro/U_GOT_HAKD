@@ -42,6 +42,7 @@ class Pixel {
         PVector direction = PVector.sub(position, point);
         direction.normalize();
         direction.mult(force);
+        direction.x = 0;
         position.add(direction);
     }
     
