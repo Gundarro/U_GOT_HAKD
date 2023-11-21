@@ -16,10 +16,29 @@ class TextPixelRenderer extends PixelRenderer {
             for (int x = 0; x < pixelGrid[y].length; x += granularity) {
                 Pixel pixel = pixelGrid[y][x];
                 pushMatrix();
+
+                int mouseRadius = 100;
+                float distanceFromMouse = dist(pixel.position.x, pixel.position.y, pixel.position.z, mouseX, mouseY, 0);
+
+                PVector pixelPosition = new PVector(pixel.position.x, pixel.position.y, pixel.position.z);
+                if (distanceFromMouse < mouseRadius) {
+                    float mouseForce = 1 - (distanceFromMouse / mouseRadius);
+                    // pixel.position.x += (mouseX - pmouseX) * mouseForce;
+                    // pixel.position.y += (mouseY - pmouseY) * mouseForce;
+                    // pixel.position.z += (mouseY - pmouseY) * mouseForce * 10;
+                    pixel.position.z += (mouseY - pmouseY) * mouseForce * 10;
+                } else {
+                    // move z towards 0
+                    // pixel.position.z += (0 - pixel.position.z) * 0.1;
+                    pixel.update();
+                }
+
                 translate(pixel.position.x, pixel.position.y, pixel.position.z);
+                // translate(pixelPosition.x, pixelPosition.y, pixelPosition.z);
                 rotateX(pixel.rotation.x);
                 rotateY(pixel.rotation.y);
                 rotateZ(pixel.rotation.z);
+
                 fill(pixel.pColor);
                 char c = this.characters.charAt(i % this.characters.length());
                 text(c, 0, 0);
