@@ -9,16 +9,31 @@ class TextPixelRenderer extends PixelRenderer {
     void loadCharactersFromFile(String filename) {
         this.characters = join(loadStrings(filename), " ");
     }
+
+    int[] findHoveredLetterIndex() {
+
+        // find the x and y of the mouse in the pixel grid
+
+        int x = (int) map(mouseX, 0, width, 0, pixelGrid[0].length);
+        int y = (int) map(mouseY, 0, height, 0, pixelGrid.length);
+
+        return new int[] {x, y};
+    }
     
     void render(int granularity) {
         int i = 0;
+        int[] hoveredLetterIndex = this.findHoveredLetterIndex();
         for (int y = 0; y < pixelGrid.length; y += granularity) {
             for (int x = 0; x < pixelGrid[y].length; x += granularity) {
                 Pixel pixel = pixelGrid[y][x];
+                if (pixel == null) {
+                    continue;
+                }
+
                 pushMatrix();
                 
-                int mouseRadius = 100;
-                float distanceFromMouse = dist(pixel.position.x, pixel.position.y, pixel.position.z, mouseX, mouseY, 0);
+                int mouseRadius = 50;
+                float distanceFromMouse = dist(pixel.originalPosition.x, pixel.originalPosition.y, pixel.originalPosition.z, mouseX, mouseY, 0);
                 
                 PVector pixelPosition = new PVector(pixel.position.x, pixel.position.y, pixel.position.z);
                 // if (distanceFromMouse < mouseRadius) {
@@ -28,12 +43,21 @@ class TextPixelRenderer extends PixelRenderer {
                 // pixel.position.z += (mouseY - pmouseY) * mouseForce * 10;
                 // pixel.position.z += (mouseY - pmouseY) * mouseForce * 10;
                 
+                // if (x == hoveredLetterIndex[0] && y == hoveredLetterIndex[1]) {
+                //     pixel.stepToOrigin(1);
+                //     pixel.makeReadable(1);
+                // } else 
                 if (distanceFromMouse < mouseRadius) {
                     pixel.stepToOrigin(mouseForce);
                     pixel.makeReadable(mouseForce);
                 } else {
                     pixel.update();
+                    // push away from mouse
+                    PVector mousePosition = new PVector(mouseX, mouseY, 0);
+                    pixel.pushAwayFromPoint(mousePosition, 50);
+                    
                 }
+                
                 
                 translate(pixel.position.x, pixel.position.y, pixel.position.z);
                 // translate(pixelPosition.x, pixelPosition.y, pixelPosition.z);

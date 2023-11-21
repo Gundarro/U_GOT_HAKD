@@ -2,7 +2,7 @@ class ImageProcessor {
     PImage image;
 
     ImageProcessor(String imageSource) {
-        this.image = loadImage("images/despair.png");
+        this.image = loadImage(imageSource);
     }
 
     ImageProcessor (PImage image) {
