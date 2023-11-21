@@ -12,7 +12,6 @@ class ImageProcessor {
     Pixel[][] toPixelGrid(Kernel kernel) {
         Pixel[][] pixelGrid = new Pixel[image.height][image.width];
         PImage convolution = kernel.convolution(this.image.copy());
-        // PImage convolution = this.image;
     
         for (int y = 0; y < image.height; y++) {
             for (int x = 0; x < image.width; x++) {

@@ -47,15 +47,13 @@ class Pixel {
     }
     
     void makeReadable(float percentage) {
-        // rotation.y = 0 means 100% readable
-        // original rotation.y = 1 means 0% readable
-        float adaptedPercentage = pow(percentage, 5);
+        float adaptedPercentage = pow(percentage, 3);
         
         rotation.y = lerp(originalRotation.y, 0, adaptedPercentage);
         
         // white means 100% readable
         // original color means 0% readable
-        pColor = lerpColor(originalColor, color(255), adaptedPercentage);
+        pColor = lerpColor(originalColor, color(255), percentage);
         
         
     }

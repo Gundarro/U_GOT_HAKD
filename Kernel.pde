@@ -29,7 +29,6 @@ class Kernel {
                 int yIndex = y - this.size / 2 + j;
                 
                 // Handle edge cases here
-
                 color pixelColor = image.get(xIndex, yIndex);
                 float kernelValue = this.kernel[i][j];
 
