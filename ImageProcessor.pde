@@ -11,13 +11,14 @@ class ImageProcessor {
 
     Pixel[][] toPixelGrid(Kernel kernel) {
         Pixel[][] pixelGrid = new Pixel[image.height][image.width];
-        PImage convulation = kernel.apply(this.image, 0, 0);
+        PImage convolution = kernel.convolution(this.image.copy());
+        // PImage convolution = this.image;
     
         for (int y = 0; y < image.height; y++) {
             for (int x = 0; x < image.width; x++) {
                 int i = y * image.width + x;
 
-                color kernelColor = convulation.get(x, y);
+                color kernelColor = convolution.get(x, y);
                 float kernelBrightness = brightness(kernelColor);
 
                 float rotationY = map(kernelBrightness, 0, 255, 0, (PI / 2)-PI/8); // Map brightness to rotation angle
@@ -30,5 +31,13 @@ class ImageProcessor {
         }
 
         return pixelGrid;
+    }
+
+    void renderConvolution(Kernel kernel, int count) {
+        PImage convolution = this.image.copy();
+        for (int i = 0; i < count; i++) {
+            convolution = kernel.convolution(convolution);
+        }
+        image(convolution, 0, 0);
     }
 }
